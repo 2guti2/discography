@@ -15,4 +15,8 @@ defmodule Discography do
   def hello do
     :world
   end
+
+  def run(file \\ "discography.txt") do
+    file |> Parser.get()
+  end
 end

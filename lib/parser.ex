@@ -5,7 +5,7 @@ defmodule Parser do
 
   require Logger
 
-  def get(file \\ "discography.txt") do
+  def get(file) do
     file
     |> read
     |> parse
