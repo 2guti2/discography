@@ -30,7 +30,7 @@ defmodule Discography.MixProject do
     [
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.12", only: :test},
-      {:ecto_sql, "~> 3.4"},
+      {:ecto_sql, "~> 3.4"}
     ]
   end
 end

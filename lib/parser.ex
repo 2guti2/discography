@@ -9,7 +9,7 @@ defmodule Parser do
 
   defp read(file_name) do
     file_name
-    |> File.stream!
+    |> File.stream!()
     |> Enum.map(&String.trim/1)
   end
 
