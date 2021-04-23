@@ -1,4 +1,8 @@
 defmodule Parser do
+  @moduledoc """
+  Documentation for `Parser`.
+  """
+
   require Logger
 
   def get(file \\ "discography.txt") do
