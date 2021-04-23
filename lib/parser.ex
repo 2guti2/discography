@@ -5,20 +5,9 @@ defmodule Parser do
 
   require Logger
 
-  def get(file) do
-    file
-    |> read
-    |> parse
-  end
-
-  defp read(file_name) do
-    file_name
-    |> File.stream!()
+  def parse(stream) do
+    stream
     |> Enum.map(&String.trim/1)
-  end
-
-  defp parse(lines) do
-    lines
     |> Enum.map(&parse_line/1)
     |> filter_out_nils
   end
