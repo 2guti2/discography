@@ -1,15 +1,10 @@
-defmodule ParserTest do
+defmodule Discography.Test.ParserTest do
   use ExUnit.Case
-
-  import ExUnit.CaptureLog
   require Logger
+  import ExUnit.CaptureLog
+  import Discography.Helpers.Streams
   alias Discography.Disc
   alias Discography.Parser
-
-  def build_stream(file_content) do
-    {:ok, stream} = file_content |> StringIO.open()
-    stream |> IO.binstream(:line)
-  end
 
   describe "parser" do
     test "parses correctly" do

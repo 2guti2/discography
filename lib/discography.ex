@@ -5,6 +5,8 @@ defmodule Discography do
 
   alias Discography.Parser
 
+  @file_reader Application.compile_env(:discography, :file_reader, File)
+
   @doc """
   Run utility
 
@@ -13,9 +15,10 @@ defmodule Discography do
       iex> Discography.run
 
   """
+
   def run(file \\ "discography.txt") do
     file
-    |> File.stream!()
+    |> @file_reader.stream!()
     |> Parser.parse()
   end
 end
