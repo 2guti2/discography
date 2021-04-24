@@ -6,6 +6,8 @@ defmodule Discography.Disc do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @this_year DateTime.utc_now().year
+
   @primary_key false
   embedded_schema do
     field(:year, :integer)
@@ -16,6 +18,6 @@ defmodule Discography.Disc do
     disc
     |> cast(params, [:year, :name])
     |> validate_required([:year, :name])
-    |> validate_inclusion(:year, 1800..DateTime.utc_now().year)
+    |> validate_inclusion(:year, 1800..@this_year)
   end
 end
