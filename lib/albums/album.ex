@@ -1,4 +1,4 @@
-defmodule Discography.Album do
+defmodule Discography.Albums.Album do
   @moduledoc """
   Representation of an album in a non-persisted data structure.
 
@@ -19,7 +19,7 @@ defmodule Discography.Album do
   end
 
   @doc """
-    Casts and validates fields for `Discography.Album`
+    Casts and validates fields for `Discography.Albums.Album`
   """
   def changeset(disc, params \\ %{}) do
     disc

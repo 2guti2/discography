@@ -3,7 +3,7 @@ defmodule Discography.Test.ParserTest do
   require Logger
   import ExUnit.CaptureLog
   import Discography.Support.Streams
-  alias Discography.Album
+  alias Discography.Albums.Album
   alias Discography.Parser
 
   describe "parser" do
