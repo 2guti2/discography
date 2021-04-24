@@ -6,7 +6,6 @@ defmodule Discography.Albums.Album do
   - `year` - year the album was released
   - `name` - name of the album
   """
-  @moduledoc section: :albums
 
   use Ecto.Schema
   import Ecto.Changeset

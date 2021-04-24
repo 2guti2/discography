@@ -2,7 +2,6 @@ defmodule Discography.Albums.Context do
   @moduledoc """
   Isolate access to `Discography.Albums.Album` and `Discography.Albums.DecadeList`.
   """
-  @moduledoc section: :albums
 
   alias Discography.Albums.Album
   alias Discography.Albums.DecadeList

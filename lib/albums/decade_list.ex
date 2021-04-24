@@ -6,7 +6,6 @@ defmodule Discography.Albums.DecadeList do
   - `title` - a title of the decade
   - `albums` - list of `Discography.Albums.Album`
   """
-  @moduledoc section: :albums
 
   defstruct [:title, :albums]
 
