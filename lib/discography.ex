@@ -1,7 +1,5 @@
 defmodule Discography do
-  @moduledoc """
-  Documentation for `Discography`.
-  """
+  @moduledoc false
 
   alias Discography.Parser
 

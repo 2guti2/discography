@@ -1,11 +1,15 @@
 defmodule Discography.Parser do
   @moduledoc """
-  Documentation for `Parser`.
+  Module that handles the parsing of a text file stream into business structures
   """
 
   require Logger
   alias Discography.Disc
 
+  @type stream :: IO.Stream
+  @type disc :: Disc
+
+  @spec parse(arg) :: [Disc] when arg: stream
   def parse(stream) do
     stream
     |> Enum.map(&String.trim/1)
