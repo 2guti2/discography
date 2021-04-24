@@ -1,18 +1,22 @@
 defmodule Discography do
-  @moduledoc """
-  Documentation for `Discography`.
-  """
+  @moduledoc false
+
+  alias Discography.Parser
+
+  @file_reader Application.compile_env(:discography, :file_reader, File)
 
   @doc """
-  Hello world.
+  Run utility
 
   ## Examples
 
-      iex> Discography.hello()
-      :world
+      iex> Discography.run
 
   """
-  def hello do
-    :world
+
+  def run(file \\ "discography.txt") do
+    file
+    |> @file_reader.stream!()
+    |> Parser.parse()
   end
 end

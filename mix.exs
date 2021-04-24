@@ -29,7 +29,9 @@ defmodule Discography.MixProject do
   defp deps do
     [
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.12", only: :test}
+      {:excoveralls, "~> 0.12", only: :test},
+      {:ecto, "~> 3.4"},
+      {:ex_doc, "~> 0.24", only: :dev, runtime: false}
     ]
   end
 end

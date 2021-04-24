@@ -23,3 +23,7 @@ erl_crash.dump
 discography-*.tar
 
 .idea
+.idea/
+.idea/*
+
+.DS_Store
