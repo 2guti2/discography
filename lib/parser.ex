@@ -1,19 +1,16 @@
 defmodule Discography.Parser do
   @moduledoc """
-  Module that handles the parsing of a text file stream into business structures
+  Module that handles the parsing of a text file stream into business structures.
   """
 
   require Logger
-  alias Discography.Disc
-
-  @type stream :: IO.Stream
-  @type disc :: Disc
+  alias Discography.Album
 
   @doc """
-  Parses a stream of lines that correspond to a year and name of a disc into
-  a list of Discography.Disc
+  Parses a `IO.Stream` of lines that correspond to a year and name of a disc into
+  a list of `Discography.Album`.
   """
-  @spec parse(arg) :: [Disc] when arg: stream
+  @spec parse(stream) :: [%Album{year: integer(), name: String.t()}] when stream: %IO.Stream{}
   def parse(stream) do
     stream
     |> Enum.map(&String.trim/1)
@@ -29,21 +26,21 @@ defmodule Discography.Parser do
 
     case Integer.parse(str_year) do
       {year, ""} ->
-        build_disc(year, name)
+        build_album(year, name)
 
       _ ->
-        Logger.error("Invalid year %Disc{year: #{str_year}, name: #{name}}")
+        Logger.error("Invalid year %Album{year: #{str_year}, name: #{name}}")
         nil
     end
   end
 
-  defp build_disc(year, name) do
-    changeset = Disc.changeset(%Disc{}, %{year: year, name: name})
+  defp build_album(year, name) do
+    changeset = Album.changeset(%Album{}, %{year: year, name: name})
 
     if changeset.valid? do
-      %Disc{year: year, name: name}
+      %Album{year: year, name: name}
     else
-      Logger.error("Disc failed validation %Disc{year: #{year}, name: #{name}}")
+      Logger.error("Album failed validation %Album{year: #{year}, name: #{name}}")
       nil
     end
   end

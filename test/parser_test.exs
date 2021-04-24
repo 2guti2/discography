@@ -3,7 +3,7 @@ defmodule Discography.Test.ParserTest do
   require Logger
   import ExUnit.CaptureLog
   import Discography.Support.Streams
-  alias Discography.Disc
+  alias Discography.Album
   alias Discography.Parser
 
   describe "parser" do
@@ -11,8 +11,8 @@ defmodule Discography.Test.ParserTest do
       stream = build_stream("1974 Planet Waves\n1975 Blood on the Tracks")
 
       expected = [
-        %Disc{year: 1974, name: "Planet Waves"},
-        %Disc{year: 1975, name: "Blood on the Tracks"}
+        %Album{year: 1974, name: "Planet Waves"},
+        %Album{year: 1975, name: "Blood on the Tracks"}
       ]
 
       assert expected == Parser.parse(stream)
@@ -21,21 +21,21 @@ defmodule Discography.Test.ParserTest do
     test "keeps parsing when year is invalid" do
       stream = build_stream("invalid\n1975 Blood on the Tracks")
 
-      expected = [%Disc{year: 1975, name: "Blood on the Tracks"}]
+      expected = [%Album{year: 1975, name: "Blood on the Tracks"}]
 
       assert capture_log(fn ->
                assert expected == Parser.parse(stream)
-             end) =~ "Invalid year %Disc{year: invalid, name: }"
+             end) =~ "Invalid year %Album{year: invalid, name: }"
     end
 
     test "keeps parsing when year is not in range" do
       stream = build_stream("1750 Planet Waves\n1975 Blood on the Tracks")
 
-      expected = [%Disc{year: 1975, name: "Blood on the Tracks"}]
+      expected = [%Album{year: 1975, name: "Blood on the Tracks"}]
 
       assert capture_log(fn ->
                assert expected == Parser.parse(stream)
-             end) =~ "Disc failed validation %Disc{year: 1750, name: Planet Waves}"
+             end) =~ "Album failed validation %Album{year: 1750, name: Planet Waves}"
     end
   end
 end

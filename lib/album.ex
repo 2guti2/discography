@@ -1,5 +1,11 @@
-defmodule Discography.Disc do
-  @moduledoc false
+defmodule Discography.Album do
+  @moduledoc """
+  Representation of an album in a non-persisted data structure.
+
+  The following fields are public:
+  - `year` - year the album was released
+  - `name` - name of the album
+  """
 
   use Ecto.Schema
   import Ecto.Changeset
@@ -12,6 +18,9 @@ defmodule Discography.Disc do
     field(:name, :string)
   end
 
+  @doc """
+    Casts and validates fields for `Discography.Album`
+  """
   def changeset(disc, params \\ %{}) do
     disc
     |> cast(params, [:year, :name])
