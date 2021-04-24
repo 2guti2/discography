@@ -6,11 +6,13 @@ defmodule Discography.Parser do
   require Logger
   alias Discography.Album
 
+  @type stream :: %IO.Stream{}
+
   @doc """
   Parses a `IO.Stream` of lines that correspond to a year and name of a disc into
   a list of `Discography.Album`.
   """
-  @spec parse(stream) :: [%Album{year: integer(), name: String.t()}] when stream: %IO.Stream{}
+  @spec parse(stream()) :: [%Album{year: integer(), name: String.t()}]
   def parse(stream) do
     stream
     |> Enum.map(&String.trim/1)
