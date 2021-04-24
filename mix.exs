@@ -14,6 +14,17 @@ defmodule Discography.MixProject do
         "coveralls.detail": :test,
         "coveralls.post": :test,
         "coveralls.html": :test
+      ],
+      docs: [
+        groups_for_modules: [
+          Main: [Discography],
+          Parser: [Discography.Parser],
+          Albums: [
+            Discography.Albums.Context,
+            Discography.Albums.Album,
+            Discography.Albums.DecadeList
+          ]
+        ]
       ]
     ]
   end

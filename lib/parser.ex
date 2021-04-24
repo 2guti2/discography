@@ -10,7 +10,7 @@ defmodule Discography.Parser do
 
   @doc """
   Parses a `IO.Stream` of lines that correspond to a year and name of a disc into
-  a list of `Discography.Album`.
+  a list of `Discography.Albums.Album`.
   """
   @spec parse(stream()) :: [%Album{year: integer(), name: String.t()}]
   def parse(stream) do

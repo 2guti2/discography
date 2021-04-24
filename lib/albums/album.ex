@@ -6,6 +6,7 @@ defmodule Discography.Albums.Album do
   - `year` - year the album was released
   - `name` - name of the album
   """
+  @moduledoc section: :albums
 
   use Ecto.Schema
   import Ecto.Changeset
@@ -19,7 +20,7 @@ defmodule Discography.Albums.Album do
   end
 
   @doc """
-    Casts and validates fields for `Discography.Album`
+    Casts and validates fields for `Discography.Albums.Album`
   """
   def changeset(disc, params \\ %{}) do
     disc
