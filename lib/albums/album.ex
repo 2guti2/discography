@@ -1,4 +1,4 @@
-defmodule Discography.Album do
+defmodule Discography.Albums.Album do
   @moduledoc """
   Representation of an album in a non-persisted data structure.
 

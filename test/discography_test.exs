@@ -1,6 +1,6 @@
 defmodule Discography.Test.DiscographyTest do
   use ExUnit.Case
-  alias Discography.Album
+  alias Discography.Albums.Album
   import Discography
 
   describe "discography" do

@@ -4,7 +4,7 @@ defmodule Discography.Parser do
   """
 
   require Logger
-  alias Discography.Album
+  alias Discography.Albums.Album
 
   @type stream :: %IO.Stream{}
 
