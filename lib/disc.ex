@@ -1,7 +1,8 @@
-defmodule Disc do
+defmodule Discography.Disc do
   @moduledoc """
   Documentation for `Disc`.
   """
+
   use Ecto.Schema
   import Ecto.Changeset
 

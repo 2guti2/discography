@@ -1,9 +1,10 @@
-defmodule Parser do
+defmodule Discography.Parser do
   @moduledoc """
   Documentation for `Parser`.
   """
 
   require Logger
+  alias Discography.Disc
 
   def parse(stream) do
     stream
@@ -13,11 +14,22 @@ defmodule Parser do
   end
 
   defp parse_line(line) do
-    {year, name} =
+    {str_year, name} =
       line
       |> String.split(" ", trim: true)
       |> first_and_rest
 
+    case Integer.parse(str_year) do
+      {year, ""} ->
+        build_disc(year, name)
+
+      _ ->
+        Logger.error("Invalid year")
+        nil
+    end
+  end
+
+  defp build_disc(year, name) do
     changeset = Disc.changeset(%Disc{}, %{year: year, name: name})
 
     if changeset.valid? do
