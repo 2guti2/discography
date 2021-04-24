@@ -9,6 +9,10 @@ defmodule Discography.Parser do
   @type stream :: IO.Stream
   @type disc :: Disc
 
+  @doc """
+  Parses a stream of lines that correspond to a year and name of a disc into
+  a list of Discography.Disc
+  """
   @spec parse(arg) :: [Disc] when arg: stream
   def parse(stream) do
     stream
