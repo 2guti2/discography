@@ -25,7 +25,7 @@ defmodule Discography.Test.ParserTest do
 
       assert capture_log(fn ->
                assert expected == Parser.parse(stream)
-             end) =~ "Invalid year"
+             end) =~ "Invalid year %Disc{year: invalid, name: }"
     end
 
     test "keeps parsing when year is not in range" do

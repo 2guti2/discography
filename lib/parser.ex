@@ -24,7 +24,7 @@ defmodule Discography.Parser do
         build_disc(year, name)
 
       _ ->
-        Logger.error("Invalid year")
+        Logger.error("Invalid year %Disc{year: #{str_year}, name: #{name}}")
         nil
     end
   end
