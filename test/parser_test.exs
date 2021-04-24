@@ -2,7 +2,7 @@ defmodule Discography.Test.ParserTest do
   use ExUnit.Case
   require Logger
   import ExUnit.CaptureLog
-  import Discography.Helpers.Streams
+  import Discography.Support.Streams
   alias Discography.Disc
   alias Discography.Parser
 

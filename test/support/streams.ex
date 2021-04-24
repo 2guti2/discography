@@ -1,4 +1,4 @@
-defmodule Discography.Helpers.Streams do
+defmodule Discography.Support.Streams do
   @moduledoc """
   Documentation for `Streams`.
   """
