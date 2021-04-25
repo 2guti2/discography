@@ -24,7 +24,9 @@ defmodule Discography.Integrations.Spotify.API do
           Poison.decode!(body)["#{type}s"]["items"]
           |> Enum.at(0)
           |> get_image_url_from_response()
-        {:error, _} -> @default_cover_url
+
+        {:error, _} ->
+          @default_cover_url
       end
     end)
   end
@@ -60,7 +62,9 @@ defmodule Discography.Integrations.Spotify.API do
       case result do
         {:ok, body} ->
           "Bearer #{Poison.decode!(body)["access_token"]}"
-        {:error, _} -> ""
+
+        {:error, _} ->
+          ""
       end
     end)
   end

@@ -36,6 +36,7 @@ defmodule Discography.Albums.Context do
   @spec add_cover(album_list()) :: album_list()
   def add_cover(albums) do
     auth_token = API.auth_token()
+
     pmap(albums, fn album ->
       cover_url = API.get_image(auth_token, "album", album.name)
       album |> Map.merge(%{cover_url: cover_url})
@@ -44,7 +45,7 @@ defmodule Discography.Albums.Context do
 
   defp pmap(collection, func) do
     collection
-    |> Enum.map(&(Task.async(fn -> func.(&1) end)))
+    |> Enum.map(&Task.async(fn -> func.(&1) end))
     |> Enum.map(&Task.await/1)
   end
 
