@@ -32,7 +32,8 @@ defmodule Discography.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      mod: {Discography.Integrations.SpotifyServer, []}
     ]
   end
 
@@ -42,7 +43,9 @@ defmodule Discography.MixProject do
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.12", only: :test},
       {:ecto, "~> 3.4"},
-      {:ex_doc, "~> 0.24", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.24", only: :dev, runtime: false},
+      {:httpoison, "~> 1.8"},
+      {:poison, "~> 3.1"}
     ]
   end
 end

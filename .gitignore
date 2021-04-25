@@ -27,3 +27,5 @@ discography-*.tar
 .idea/*
 
 .DS_Store
+
+.env

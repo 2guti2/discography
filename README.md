@@ -20,3 +20,5 @@ and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/discography](https://hexdocs.pm/discography).
 
 # discography
+
+https://developer.spotify.com/documentation/web-api/quick-start/
