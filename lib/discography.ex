@@ -4,7 +4,7 @@ defmodule Discography do
   """
 
   alias Discography.Parser
-  alias Discography.Albums.Context
+  alias Discography.Albums
 
   @file_reader Application.compile_env(:discography, :file_reader, File)
 
@@ -22,7 +22,8 @@ defmodule Discography do
     file
     |> @file_reader.stream!()
     |> Parser.parse()
-    |> Context.sort()
-    |> Context.split_by_decade()
+    |> Albums.Context.add_cover()
+    |> Albums.Context.sort()
+    |> Albums.Context.split_by_decade()
   end
 end
