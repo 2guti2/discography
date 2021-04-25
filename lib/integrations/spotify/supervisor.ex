@@ -1,4 +1,6 @@
 defmodule Discography.Integrations.Spotify.Supervisor do
+  @moduledoc false
+
   use Supervisor
   alias Discography.Integrations.Spotify.Server
 

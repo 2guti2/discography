@@ -23,6 +23,10 @@ defmodule Discography.MixProject do
             Discography.Albums.Context,
             Discography.Albums.Album,
             Discography.Albums.DecadeList
+          ],
+          "Spotify Integration": [
+            Discography.Integrations.Spotify.Server,
+            Discography.Integrations.Spotify.API
           ]
         ]
       ]
