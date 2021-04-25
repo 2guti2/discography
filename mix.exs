@@ -33,7 +33,7 @@ defmodule Discography.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {Discography.Integrations.SpotifyServer, []}
+      mod: {Discography.Integrations.Spotify.Server, []}
     ]
   end
 

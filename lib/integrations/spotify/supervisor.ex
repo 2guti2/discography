@@ -1,6 +1,6 @@
-defmodule Discography.Integrations.SpotifySupervisor do
+defmodule Discography.Integrations.Spotify.Supervisor do
   use Supervisor
-  alias Discography.Integrations.SpotifyServer
+  alias Discography.Integrations.Spotify.Server
 
   def start_link() do
     Supervisor.start_link(__MODULE__, [], name: __MODULE__)
@@ -8,7 +8,7 @@ defmodule Discography.Integrations.SpotifySupervisor do
 
   def init(_opts) do
     children = [
-      SpotifyServer
+      Server
     ]
 
     Supervisor.start_link(children, strategy: :one_for_all)

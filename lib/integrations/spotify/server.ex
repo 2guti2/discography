@@ -1,6 +1,6 @@
-defmodule Discography.Integrations.SpotifyServer do
+defmodule Discography.Integrations.Spotify.Server do
   use GenServer
-  alias Discography.Integrations.Spotify
+  alias Discography.Integrations.Spotify.API
 
   def start(_, _) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -19,7 +19,7 @@ defmodule Discography.Integrations.SpotifyServer do
 
   @impl true
   def handle_call({:get_image, type, name}, _from, state) do
-    {:reply, Spotify.get_image(type, name, state.token), state}
+    {:reply, API.get_image(type, name, state.token), state}
   end
 
   @impl true
@@ -30,7 +30,7 @@ defmodule Discography.Integrations.SpotifyServer do
       :noreply,
       state
       |> Map.merge(%{
-        token: Spotify.auth_token()
+        token: API.auth_token()
       })
     }
   end

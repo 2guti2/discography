@@ -1,4 +1,4 @@
-defmodule Discography.Integrations.Spotify do
+defmodule Discography.Integrations.Spotify.API do
   @client_id System.get_env("SPOTIFY_CLIENT_ID")
   @client_secret System.get_env("SPOTIFY_CLIENT_SECRET")
 
