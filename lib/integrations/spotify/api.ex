@@ -57,8 +57,9 @@ defmodule Discography.Integrations.Spotify.API do
   end
 
   defp get_image_url_from_response(resp, type) do
-    item = resp["#{type}s"]["items"]
-    |> Enum.at(0)
+    item =
+      resp["#{type}s"]["items"]
+      |> Enum.at(0)
 
     if item == nil do
       @default_cover_url
