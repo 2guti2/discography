@@ -2,12 +2,12 @@ defmodule Discography.Test.DiscographyTest do
   use ExUnit.Case
   import Discography
   alias Discography.Albums.Album
-  alias Discography.Albums.DecadeList
+  alias Discography.Albums.Decade
 
   describe "discography" do
     test "runs correctly" do
       expected = [
-        %DecadeList{
+        %Decade{
           title: "70's",
           albums: [
             %Album{
@@ -17,7 +17,7 @@ defmodule Discography.Test.DiscographyTest do
             }
           ]
         },
-        %DecadeList{
+        %Decade{
           title: "80's",
           albums: [
             %Album{
@@ -27,7 +27,7 @@ defmodule Discography.Test.DiscographyTest do
             }
           ]
         },
-        %DecadeList{
+        %Decade{
           title: "00's",
           albums: [
             %Album{
@@ -44,7 +44,7 @@ defmodule Discography.Test.DiscographyTest do
 
     test "handles bad request and keeps going" do
       expected = [
-        %DecadeList{
+        %Decade{
           title: "70's",
           albums: [
             %Album{
@@ -61,7 +61,7 @@ defmodule Discography.Test.DiscographyTest do
 
     test "handles server error and keeps going" do
       expected = [
-        %DecadeList{
+        %Decade{
           title: "70's",
           albums: [
             %Album{

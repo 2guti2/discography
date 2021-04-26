@@ -1,4 +1,4 @@
-defmodule Discography.Albums.DecadeList do
+defmodule Discography.Albums.Decade do
   @moduledoc """
   Representation of a list of albums in a decade in a non-persisted data structure.
 
