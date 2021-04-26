@@ -6,6 +6,7 @@ defmodule Discography.Integrations.Spotify.API do
   @client_id System.get_env("SPOTIFY_CLIENT_ID")
   @client_secret System.get_env("SPOTIFY_CLIENT_SECRET")
   @default_cover_url "https://upload.wikimedia.org/wikipedia/commons/3/3c/No-album-art.png"
+  @http_client Application.compile_env(:discography, :http_client, HTTPoison)
 
   @doc """
     Returns the url of the image representing an artist or album with a given name
@@ -14,7 +15,7 @@ defmodule Discography.Integrations.Spotify.API do
   """
   @spec get_image(String.t(), String.t(), String.t()) :: String.t()
   def get_image(token, type, name) do
-    HTTPoison.get(
+    @http_client.get(
       "https://api.spotify.com/v1/search?type=#{type}&q=#{normalize_query(name)}",
       Authorization: token
     )
@@ -50,7 +51,7 @@ defmodule Discography.Integrations.Spotify.API do
   """
   @spec auth_token() :: String.t()
   def auth_token() do
-    HTTPoison.post(
+    @http_client.post(
       "https://accounts.spotify.com/api/token",
       URI.encode_query(%{"grant_type" => "client_credentials"}),
       %{
@@ -71,16 +72,13 @@ defmodule Discography.Integrations.Spotify.API do
 
   defp handle_response(res, callback) do
     case res do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+      {:ok, %{status_code: 200, body: body}} ->
         callback.({:ok, body})
 
-      {:ok, %HTTPoison.Response{status_code: 404}} ->
+      {:ok, %{status_code: 400}} ->
         callback.({:error, nil})
 
-      {:ok, %HTTPoison.Response{status_code: 400}} ->
-        callback.({:error, nil})
-
-      {:error, %HTTPoison.Error{reason: _reason}} ->
+      {:error, %{reason: _reason}} ->
         callback.({:error, nil})
     end
   end
