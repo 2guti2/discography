@@ -23,11 +23,14 @@ defmodule Discography.MixProject do
           Albums: [
             Discography.Albums.Context,
             Discography.Albums.Album,
-            Discography.Albums.DecadeList
+            Discography.Albums.Decade
           ],
           "Spotify Integration": [
             Discography.Integrations.Spotify.Server,
             Discography.Integrations.Spotify.API
+          ],
+          "Trello Integration": [
+            Discography.Integrations.Trello.API
           ]
         ]
       ]
