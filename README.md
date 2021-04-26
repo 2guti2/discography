@@ -1,22 +1,26 @@
 # Discography
 
-**TODO: Add description**
-
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `discography` to your list of dependencies in `mix.exs`:
+Run 
 
-```elixir
-def deps do
-  [
-    {:discography, "~> 0.1.0"}
-  ]
-end
+```bash
+mix deps.get
+```
+# Initial setup
+
+Create a .env file in the root folder
+
+```dotenv
+export SPOTIFY_CLIENT_ID="<<client_id>>"
+export SPOTIFY_CLIENT_SECRET="<<client_secret>>"
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/discography](https://hexdocs.pm/discography).
+Then run `source .env` every time this is modified to load them onto your OS.
 
-# discography
+# Start the app:
+
+```bash
+iex -S mix
+```
+

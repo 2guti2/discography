@@ -16,13 +16,14 @@ defmodule Discography.Albums.Album do
   embedded_schema do
     field(:year, :integer)
     field(:name, :string)
+    field(:cover_url, :string)
   end
 
   @doc """
     Casts and validates fields for `Discography.Albums.Album`
   """
-  def changeset(disc, params \\ %{}) do
-    disc
+  def changeset(album, params \\ %{}) do
+    album
     |> cast(params, [:year, :name])
     |> validate_required([:year, :name])
     |> validate_inclusion(:year, 1800..@this_year)
