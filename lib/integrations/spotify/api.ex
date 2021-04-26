@@ -22,28 +22,14 @@ defmodule Discography.Integrations.Spotify.API do
     |> handle_response(fn result ->
       case result do
         {:ok, body} ->
-          Poison.decode!(body)["#{type}s"]["items"]
-          |> Enum.at(0)
-          |> get_image_url_from_response()
+          Poison.decode!(body)
+          |> get_image_url_from_response(type)
 
         {:error, _} ->
           @default_cover_url
       end
     end)
   end
-
-  defp get_image_url_from_response(resp) when resp != nil do
-    resp
-    |> (& &1["images"]).()
-    |> Enum.at(0)
-    |> (& &1["url"]).()
-  end
-
-  defp get_image_url_from_response(resp) when resp == nil do
-    @default_cover_url
-  end
-
-  defp normalize_query(str), do: str |> String.replace(" ", "%20")
 
   @doc """
     Returns a Spotify auth token using the process expressed here:
@@ -69,6 +55,22 @@ defmodule Discography.Integrations.Spotify.API do
       end
     end)
   end
+
+  defp get_image_url_from_response(resp, type) do
+    item = resp["#{type}s"]["items"]
+    |> Enum.at(0)
+
+    if item == nil do
+      @default_cover_url
+    else
+      item
+      |> (& &1["images"]).()
+      |> Enum.at(0)
+      |> (& &1["url"]).()
+    end
+  end
+
+  defp normalize_query(str), do: str |> String.replace(" ", "%20")
 
   defp handle_response(res, callback) do
     case res do
