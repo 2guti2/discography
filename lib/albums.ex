@@ -1,4 +1,4 @@
-defmodule Discography.Albums.Context do
+defmodule Discography.Albums do
   @moduledoc """
   Isolate access to `Discography.Albums.Album` and `Discography.Albums.Decade`.
   """

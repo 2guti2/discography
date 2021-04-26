@@ -16,14 +16,13 @@ defmodule Discography do
       iex> Discography.run
 
   """
-
   @spec run(String.t()) :: any()
   def run(file \\ "discography.txt") do
     file
     |> @file_reader.stream!()
     |> Parser.parse()
-    |> Albums.Context.add_cover()
-    |> Albums.Context.sort()
-    |> Albums.Context.split_by_decade()
+    |> Albums.add_cover()
+    |> Albums.sort()
+    |> Albums.split_by_decade()
   end
 end

@@ -1,7 +1,7 @@
 defmodule Discography.Test.AlbumsContextTest do
   use ExUnit.Case
   alias Discography.Albums.Album
-  alias Discography.Albums.Context
+  alias Discography.Albums
   alias Discography.Albums.Decade
 
   describe "albums context" do
@@ -20,7 +20,7 @@ defmodule Discography.Test.AlbumsContextTest do
         %Album{year: 1976, name: "Desire"}
       ]
 
-      assert expected == Context.sort(albums)
+      assert expected == Albums.sort(albums)
     end
   end
 
@@ -54,6 +54,6 @@ defmodule Discography.Test.AlbumsContextTest do
       }
     ]
 
-    assert expected == Context.sort(albums) |> Context.split_by_decade()
+    assert expected == Albums.sort(albums) |> Albums.split_by_decade()
   end
 end
