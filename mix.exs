@@ -21,7 +21,7 @@ defmodule Discography.MixProject do
           Main: [Discography],
           Parser: [Discography.Parser],
           Albums: [
-            Discography.Albums.Context,
+            Discography.Albums,
             Discography.Albums.Album,
             Discography.Albums.Decade
           ],
@@ -30,6 +30,7 @@ defmodule Discography.MixProject do
             Discography.Integrations.Spotify.API
           ],
           "Trello Integration": [
+            Discography.Integrations.Trello,
             Discography.Integrations.Trello.API
           ]
         ]
