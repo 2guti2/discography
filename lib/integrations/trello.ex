@@ -23,9 +23,10 @@ defmodule Discography.Integrations.Trello do
     %Board{id: board_id, decades: decades}
   end
 
-  def archive_preexisting_lists(board_id) do
-    lists = API.get_lists(board_id)
-    API.archive_lists(lists)
+  defp archive_preexisting_lists(board_id) do
+    board_id
+    |> API.get_lists()
+    |> API.archive_lists()
   end
 
   def add_cards_to_lists(board) do
