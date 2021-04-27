@@ -13,7 +13,7 @@ defmodule Discography.Integrations.Spotify do
   """
   @spec add_cover(album_list(), String.t()) :: album_list()
   def add_cover(albums, artist) do
-    IO.puts("adding spotify cover")
+    if Mix.env() == :dev, do: IO.puts("adding spotify cover")
     auth_token = API.auth_token()
 
     pmap(albums, fn album ->
