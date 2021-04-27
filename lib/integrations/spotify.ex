@@ -11,6 +11,8 @@ defmodule Discography.Integrations.Spotify do
   """
   @spec add_cover(album_list()) :: album_list()
   def add_cover(albums) do
+    IO.puts("adding spotify cover")
+
     auth_token = API.auth_token()
 
     pmap(albums, fn album ->

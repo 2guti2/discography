@@ -11,8 +11,12 @@ defmodule Discography.Integrations.Trello do
 
   @spec overwrite_lists(decade_list(), String.t()) :: any()
   def overwrite_lists(decades, board_url) do
+    IO.puts("archiving preexisting lists on board")
+
     board_id = API.get_board_id(board_url)
     archive_preexisting_lists(board_id)
+
+    IO.puts("creating new lists")
 
     decades =
       for decade <- decades do
@@ -30,6 +34,7 @@ defmodule Discography.Integrations.Trello do
   end
 
   def add_cards_to_lists(board) do
+    IO.puts("adding albums to lists")
     board
   end
 end

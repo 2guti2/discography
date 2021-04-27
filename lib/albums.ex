@@ -14,6 +14,8 @@ defmodule Discography.Albums do
   """
   @spec sort(album_list()) :: album_list()
   def sort(albums, order \\ :desc) do
+    IO.puts("sorting albums")
+
     albums
     |> Enum.sort_by(&get_name/1, order)
     |> Enum.sort_by(&get_year/1, order)
@@ -24,6 +26,8 @@ defmodule Discography.Albums do
   """
   @spec split_by_decade(album_list()) :: decade_list()
   def split_by_decade(albums) do
+    IO.puts("splitting albums by decade")
+
     albums
     |> Enum.chunk_by(fn album -> Decade.decade_name(album.year) end)
     |> build_decades()

@@ -14,6 +14,8 @@ defmodule Discography.Parser do
   """
   @spec parse(stream()) :: [%Album{year: integer(), name: String.t()}]
   def parse(stream) do
+    IO.puts("parsing file")
+
     stream
     |> Enum.map(&String.trim/1)
     |> Enum.map(&parse_line/1)
