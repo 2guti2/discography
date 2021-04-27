@@ -6,6 +6,7 @@ defmodule Discography.Integrations.Trello.API do
   @api_key System.get_env("TRELLO_API_KEY")
   @token System.get_env("TRELLO_TOKEN")
   @http_client Application.compile_env(:discography, :http_client, HTTPoison)
+  @base_url "https://api.trello.com/1"
 
   def get_board_id(url) do
     URI.encode_query(%{
@@ -32,7 +33,7 @@ defmodule Discography.Integrations.Trello.API do
         "token" => @token
       })
 
-    @http_client.get("https://api.trello.com/1/boards/#{board_id}/lists?#{query}")
+    @http_client.get("#{@base_url}/boards/#{board_id}/lists?#{query}")
     |> handle_response(fn result ->
       case result do
         {:ok, body} -> Poison.decode!(body)
@@ -50,7 +51,7 @@ defmodule Discography.Integrations.Trello.API do
       })
 
     for list <- lists do
-      @http_client.put("https://api.trello.com/1/lists/#{list["id"]}?#{query}")
+      @http_client.put("#{@base_url}/lists/#{list["id"]}?#{query}")
     end
   end
 
@@ -63,7 +64,7 @@ defmodule Discography.Integrations.Trello.API do
         "idBoard" => board_id
       })
 
-    @http_client.post("https://api.trello.com/1/lists?#{query}", [])
+    @http_client.post("#{@base_url}/lists?#{query}", [])
     |> handle_response(fn result ->
       case result do
         {:ok, body} ->
