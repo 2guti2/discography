@@ -10,12 +10,12 @@ defmodule Discography.Integrations.Trello do
 
   @spec overwrite_lists(decade_list(), String.t()) :: any()
   def overwrite_lists(decades, board_url) do
-    IO.puts("archiving preexisting lists on board")
+    if Mix.env() == :dev, do: IO.puts("archiving preexisting lists on board")
 
     board_id = API.get_board_id(board_url)
     archive_preexisting_lists(board_id)
 
-    IO.puts("creating new lists")
+    if Mix.env() == :dev, do: IO.puts("creating new lists")
 
     for decade <- decades do
       id = API.create_list(board_id, decade.title)
@@ -30,16 +30,16 @@ defmodule Discography.Integrations.Trello do
   end
 
   def add_cards_to_lists(decades) do
-    IO.puts("adding albums to lists")
+    if Mix.env() == :dev, do: IO.puts("adding albums to lists")
 
     for decade <- decades do
       for album <- decade.albums do
         card_title = "#{album.year} - #{album.name}"
-        IO.puts("creating card #{card_title}")
+        if Mix.env() == :dev, do: IO.puts("creating card #{card_title}")
         API.create_card(decade.id, card_title, album.cover_url)
       end
     end
 
-    {:ok, "job finished"}
+    {:ok}
   end
 end

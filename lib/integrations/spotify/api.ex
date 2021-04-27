@@ -15,6 +15,7 @@ defmodule Discography.Integrations.Spotify.API do
   """
   @spec get_image(String.t(), String.t(), String.t()) :: String.t()
   def get_image(token, type, name) do
+    name = name |> String.replace("'", "") |> String.replace("’", "")
     @http_client.get(
       "https://api.spotify.com/v1/search?type=#{type}&q=#{normalize_query(name)}",
       Authorization: token

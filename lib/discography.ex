@@ -19,11 +19,11 @@ defmodule Discography do
 
   """
   @spec run(String.t()) :: any()
-  def run(board_url, file \\ "discography.txt") do
+  def run(board_url, artist \\ "Bob Dylan", file \\ "discography.txt") do
     file
     |> @file_reader.stream!()
     |> Parser.parse()
-    |> Spotify.add_cover()
+    |> Spotify.add_cover(artist)
     |> Albums.sort()
     |> Albums.split_by_decade()
     |> Trello.overwrite_lists(board_url)

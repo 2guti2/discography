@@ -1,4 +1,4 @@
-defmodule Discography.Test.AlbumsContextTest do
+defmodule Discography.Test.AlbumsTest do
   use ExUnit.Case
   alias Discography.Albums.Album
   alias Discography.Albums
@@ -36,8 +36,8 @@ defmodule Discography.Test.AlbumsContextTest do
       %Decade{
         title: "70's",
         albums: [
-          %Album{year: 1974, name: "Planet Waves"},
-          %Album{year: 1975, name: "The Basement Tapes"}
+          %Album{year: 1975, name: "The Basement Tapes"},
+          %Album{year: 1974, name: "Planet Waves"}
         ]
       },
       %Decade{
@@ -54,6 +54,6 @@ defmodule Discography.Test.AlbumsContextTest do
       }
     ]
 
-    assert expected == Albums.sort(albums, :asc) |> Albums.split_by_decade()
+    assert expected == Albums.sort(albums, :desc) |> Albums.split_by_decade()
   end
 end
