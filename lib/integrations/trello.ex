@@ -1,5 +1,7 @@
 defmodule Discography.Integrations.Trello do
-  @moduledoc false
+  @moduledoc """
+  Trello API context. Manages access to the API through business-driven functions.
+  """
 
   alias Discography.Integrations.Trello.API
   alias Discography.Albums.Album

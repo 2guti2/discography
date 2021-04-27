@@ -26,7 +26,7 @@ defmodule Discography.MixProject do
             Discography.Albums.Decade
           ],
           "Spotify Integration": [
-            Discography.Integrations.Spotify.Server,
+            Discography.Integrations.Spotify,
             Discography.Integrations.Spotify.API
           ],
           "Trello Integration": [
