@@ -76,7 +76,29 @@ defmodule Discography.Integrations.Trello.API do
     end)
   end
 
-  def remove_last_slash(url) do
+  def create_card(list_id, card_name, cover_url) do
+    query =
+      URI.encode_query(%{
+        "key" => @api_key,
+        "token" => @token,
+        "name" => card_name,
+        "idList" => list_id,
+        "urlSource" => cover_url
+      })
+
+    @http_client.post("#{@base_url}/cards?#{query}", [])
+    |> handle_response(fn result ->
+      case result do
+        {:ok, body} ->
+          {:ok}
+
+        {:error, _} ->
+          {:error}
+      end
+    end)
+  end
+
+  defp remove_last_slash(url) do
     last = String.last(url)
 
     if last == "/" do

@@ -3,6 +3,7 @@ defmodule Discography.Integrations.Spotify do
 
   alias Discography.Integrations.Spotify.API
   alias Discography.Albums.Album
+  alias Discography.Collections
 
   @type album_list :: [%Album{year: integer(), name: String.t()}]
 
@@ -15,15 +16,9 @@ defmodule Discography.Integrations.Spotify do
 
     auth_token = API.auth_token()
 
-    pmap(albums, fn album ->
+    Collections.pmap(albums, fn album ->
       cover_url = API.get_image(auth_token, "album", album.name)
       album |> Map.merge(%{cover_url: cover_url})
     end)
-  end
-
-  defp pmap(collection, func) do
-    collection
-    |> Enum.map(&Task.async(fn -> func.(&1) end))
-    |> Enum.map(&Task.await/1)
   end
 end

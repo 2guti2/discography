@@ -13,7 +13,7 @@ defmodule Discography.Albums do
   Sort albums by year and if they have the same one, alphabetically.
   """
   @spec sort(album_list()) :: album_list()
-  def sort(albums, order \\ :desc) do
+  def sort(albums, order \\ :asc) do
     IO.puts("sorting albums")
 
     albums
@@ -31,6 +31,7 @@ defmodule Discography.Albums do
     albums
     |> Enum.chunk_by(fn album -> Decade.decade_name(album.year) end)
     |> build_decades()
+    |> Enum.reverse()
   end
 
   defp build_decades(album_lists) do
