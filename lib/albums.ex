@@ -8,26 +8,26 @@ defmodule Discography.Albums do
   alias Discography.Integrations.Spotify.API
 
   @type album_list :: [%Album{year: integer(), name: String.t()}]
-  @type decade_list_list :: [%Decade{title: String.t(), albums: album_list()}]
+  @type decade_list :: [%Decade{title: String.t(), albums: album_list()}]
 
   @doc """
   Sort albums by year and if they have the same one, alphabetically.
   """
   @spec sort(album_list()) :: album_list()
-  def sort(albums) do
+  def sort(albums, order \\ :desc) do
     albums
-    |> Enum.sort_by(&get_name/1, :asc)
-    |> Enum.sort_by(&get_year/1, :asc)
+    |> Enum.sort_by(&get_name/1, order)
+    |> Enum.sort_by(&get_year/1, order)
   end
 
   @doc """
   Create a `Discography.Albums.Decade` list of the albums.
   """
-  @spec split_by_decade(album_list()) :: decade_list_list()
+  @spec split_by_decade(album_list()) :: decade_list()
   def split_by_decade(albums) do
     albums
     |> Enum.chunk_by(fn album -> Decade.decade_name(album.year) end)
-    |> build_decade_lists()
+    |> build_decades()
   end
 
   @doc """
@@ -49,7 +49,7 @@ defmodule Discography.Albums do
     |> Enum.map(&Task.await/1)
   end
 
-  defp build_decade_lists(album_lists) do
+  defp build_decades(album_lists) do
     for list <- album_lists do
       %Decade{
         title: Enum.at(list, 0).year |> Decade.decade_name(),

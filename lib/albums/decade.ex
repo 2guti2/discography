@@ -7,7 +7,7 @@ defmodule Discography.Albums.Decade do
   - `albums` - list of `Discography.Albums.Album`
   """
 
-  defstruct [:title, :albums]
+  defstruct [:title, :albums, :id]
 
   @doc """
   Transforms a year into a decade identifier.

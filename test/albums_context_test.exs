@@ -20,7 +20,7 @@ defmodule Discography.Test.AlbumsContextTest do
         %Album{year: 1976, name: "Desire"}
       ]
 
-      assert expected == Albums.sort(albums)
+      assert expected == Albums.sort(albums, :asc)
     end
   end
 
@@ -54,6 +54,6 @@ defmodule Discography.Test.AlbumsContextTest do
       }
     ]
 
-    assert expected == Albums.sort(albums) |> Albums.split_by_decade()
+    assert expected == Albums.sort(albums, :asc) |> Albums.split_by_decade()
   end
 end
