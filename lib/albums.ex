@@ -5,7 +5,6 @@ defmodule Discography.Albums do
 
   alias Discography.Albums.Album
   alias Discography.Albums.Decade
-  alias Discography.Integrations.Spotify.API
 
   @type album_list :: [%Album{year: integer(), name: String.t()}]
   @type decade_list :: [%Decade{title: String.t(), albums: album_list()}]
@@ -28,25 +27,6 @@ defmodule Discography.Albums do
     albums
     |> Enum.chunk_by(fn album -> Decade.decade_name(album.year) end)
     |> build_decades()
-  end
-
-  @doc """
-  Uses `Discography.Integrations.Spotify.API` to add a cover url to each album concurrently.
-  """
-  @spec add_cover(album_list()) :: album_list()
-  def add_cover(albums) do
-    auth_token = API.auth_token()
-
-    pmap(albums, fn album ->
-      cover_url = API.get_image(auth_token, "album", album.name)
-      album |> Map.merge(%{cover_url: cover_url})
-    end)
-  end
-
-  defp pmap(collection, func) do
-    collection
-    |> Enum.map(&Task.async(fn -> func.(&1) end))
-    |> Enum.map(&Task.await/1)
   end
 
   defp build_decades(album_lists) do

@@ -6,6 +6,7 @@ defmodule Discography do
   alias Discography.Parser
   alias Discography.Albums
   alias Discography.Integrations.Trello
+  alias Discography.Integrations.Spotify
 
   @file_reader Application.compile_env(:discography, :file_reader, File)
 
@@ -22,9 +23,10 @@ defmodule Discography do
     file
     |> @file_reader.stream!()
     |> Parser.parse()
-    |> Albums.add_cover()
+    |> Spotify.add_cover()
     |> Albums.sort()
     |> Albums.split_by_decade()
-    |> Trello.create_lists(board_url)
+    |> Trello.overwrite_lists(board_url)
+    |> Trello.add_cards_to_lists()
   end
 end

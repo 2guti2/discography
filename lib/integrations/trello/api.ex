@@ -25,14 +25,44 @@ defmodule Discography.Integrations.Trello.API do
     end)
   end
 
+  def get_lists(board_id) do
+    query =
+      URI.encode_query(%{
+        "key" => @api_key,
+        "token" => @token
+      })
+
+    @http_client.get("https://api.trello.com/1/boards/#{board_id}/lists?#{query}")
+    |> handle_response(fn result ->
+      case result do
+        {:ok, body} -> Poison.decode!(body)
+        {:error, _} -> nil
+      end
+    end)
+  end
+
+  def archive_lists(lists) do
+    query =
+      URI.encode_query(%{
+        "key" => @api_key,
+        "token" => @token,
+        "closed" => true
+      })
+
+    for list <- lists do
+      @http_client.put("https://api.trello.com/1/lists/#{list["id"]}?#{query}")
+    end
+  end
+
   def create_list(board_id, list_name) do
-    query = URI.encode_query(
-      %{
+    query =
+      URI.encode_query(%{
         "key" => @api_key,
         "token" => @token,
         "name" => list_name,
         "idBoard" => board_id
       })
+
     @http_client.post("https://api.trello.com/1/lists?#{query}", [])
     |> handle_response(fn result ->
       case result do
@@ -47,6 +77,7 @@ defmodule Discography.Integrations.Trello.API do
 
   def remove_last_slash(url) do
     last = String.last(url)
+
     if last == "/" do
       String.slice(url, 0..(String.length(url) - 2))
     else
