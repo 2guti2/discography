@@ -8,15 +8,4 @@ defmodule Discography.Albums.Decade do
   """
 
   defstruct [:title, :albums, :id]
-
-  @doc """
-  Transforms a year into a decade identifier.
-  """
-  @spec decade_name(integer()) :: String.t()
-  def decade_name(year) do
-    year
-    |> Integer.to_string()
-    |> String.slice(2..-2)
-    |> (&"#{&1}0's").()
-  end
 end

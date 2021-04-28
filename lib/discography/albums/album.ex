@@ -11,6 +11,7 @@ defmodule Discography.Albums.Album do
   import Ecto.Changeset
 
   @this_year DateTime.utc_now().year
+  @type album :: %Discography.Albums.Album{}
 
   @primary_key false
   embedded_schema do
@@ -27,5 +28,16 @@ defmodule Discography.Albums.Album do
     |> cast(params, [:year, :name])
     |> validate_required([:year, :name])
     |> validate_inclusion(:year, 1800..@this_year)
+  end
+
+  @doc """
+  Transforms a year into a decade identifier.
+  """
+  @spec decade_name(album()) :: String.t()
+  def decade_name(album) do
+    album.year
+    |> Integer.to_string()
+    |> String.slice(2..-2)
+    |> (&"#{&1}0's").()
   end
 end

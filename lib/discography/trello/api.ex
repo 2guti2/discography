@@ -89,7 +89,7 @@ defmodule Discography.Integrations.Trello.API do
     @http_client.post("#{@base_url}/cards?#{query}", [])
     |> handle_response(fn result ->
       case result do
-        {:ok, body} ->
+        {:ok, _body} ->
           {:ok}
 
         {:error, _} ->

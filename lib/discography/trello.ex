@@ -29,12 +29,10 @@ defmodule Discography.Integrations.Trello do
   def add_cards_to_lists(decades) do
     if Mix.env() == :dev, do: IO.puts("adding albums to lists")
 
-    for decade <- decades do
-      for album <- decade.albums do
-        card_title = "#{album.year} - #{album.name}"
-        if Mix.env() == :dev, do: IO.puts("creating card #{card_title}")
-        API.create_card(decade.id, card_title, album.cover_url)
-      end
+    for decade <- decades, album <- decade.albums do
+      card_title = "#{album.year} - #{album.name}"
+      if Mix.env() == :dev, do: IO.puts("creating card #{card_title}")
+      API.create_card(decade.id, card_title, album.cover_url)
     end
 
     {:ok}

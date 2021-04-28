@@ -29,7 +29,7 @@ defmodule Discography.Albums do
     if Mix.env() == :dev, do: IO.puts("splitting albums by decade")
 
     albums
-    |> Enum.chunk_by(fn album -> Decade.decade_name(album.year) end)
+    |> Enum.chunk_by(fn album -> album |> Album.decade_name() end)
     |> build_decades()
     |> Enum.reverse()
   end
@@ -37,7 +37,7 @@ defmodule Discography.Albums do
   defp build_decades(album_lists) do
     for list <- album_lists do
       %Decade{
-        title: Enum.at(list, 0).year |> Decade.decade_name(),
+        title: list |> Enum.at(0) |> Album.decade_name(),
         albums: list
       }
     end

@@ -26,7 +26,11 @@ defmodule Discography.Test.SpotifyTest do
       ]
 
       expected = [
-        %Album{year: 1974, name: "TestBreaker", cover_url: "https://upload.wikimedia.org/wikipedia/commons/3/3c/No-album-art.png"},
+        %Album{
+          year: 1974,
+          name: "TestBreaker",
+          cover_url: "https://upload.wikimedia.org/wikipedia/commons/3/3c/No-album-art.png"
+        },
         %Album{year: 1975, name: "Blood on the Tracks", cover_url: "http://someimageurl.com"}
       ]
 
@@ -40,7 +44,11 @@ defmodule Discography.Test.SpotifyTest do
       ]
 
       expected = [
-        %Album{year: 1974, name: "ServerBreaker", cover_url: "https://upload.wikimedia.org/wikipedia/commons/3/3c/No-album-art.png"},
+        %Album{
+          year: 1974,
+          name: "ServerBreaker",
+          cover_url: "https://upload.wikimedia.org/wikipedia/commons/3/3c/No-album-art.png"
+        },
         %Album{year: 1975, name: "Blood on the Tracks", cover_url: "http://someimageurl.com"}
       ]
 
