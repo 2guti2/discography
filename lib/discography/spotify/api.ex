@@ -27,6 +27,9 @@ defmodule Discography.Integrations.Spotify.API do
           Poison.decode!(body)
           |> get_image_url_from_response(type)
 
+        {:error, "connection"} ->
+          nil
+
         {:error, _} ->
           @default_cover_url
       end
@@ -84,7 +87,7 @@ defmodule Discography.Integrations.Spotify.API do
         callback.({:error, nil})
 
       {:error, %{reason: _reason}} ->
-        callback.({:error, nil})
+        callback.({:error, "connection"})
     end
   end
 end

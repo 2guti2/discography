@@ -16,10 +16,21 @@ defmodule Discography.Integrations.Spotify do
     if Mix.env() == :dev, do: IO.puts("adding spotify cover")
     auth_token = API.auth_token()
 
-    pmap(albums, fn album ->
-      cover_url = API.get_image(auth_token, "album", "#{artist} #{album.name}")
-      album |> Map.merge(%{cover_url: cover_url})
-    end)
+    albums =
+      pmap(albums, fn album ->
+        cover_url = API.get_image(auth_token, "album", "#{artist} #{album.name}")
+        album |> Map.merge(%{cover_url: cover_url})
+      end)
+
+    if albums |> any_cover_is_nil?() do
+      raise "Error connecting to external API, please check your internet connection"
+    else
+      albums
+    end
+  end
+
+  defp any_cover_is_nil?(albums) do
+    Enum.any?(albums, fn album -> album.cover_url == nil end)
   end
 
   defp pmap(collection, func) do
