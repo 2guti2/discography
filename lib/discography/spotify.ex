@@ -3,6 +3,7 @@ defmodule Discography.Integrations.Spotify do
   Spotify API context. Manages access to the API through business-driven functions.
   """
 
+  require Logger
   alias Discography.Integrations.Spotify.API
   alias Discography.Albums.Album
 
@@ -13,7 +14,7 @@ defmodule Discography.Integrations.Spotify do
   """
   @spec add_cover(album_list(), String.t()) :: album_list()
   def add_cover(albums, artist) do
-    if Mix.env() == :dev, do: IO.puts("adding spotify cover")
+    Logger.info("adding spotify cover")
     auth_token = API.auth_token()
 
     albums =

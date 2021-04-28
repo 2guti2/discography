@@ -14,7 +14,7 @@ defmodule Discography.Parser do
   """
   @spec parse(stream()) :: [%Album{year: integer(), name: String.t()}]
   def parse(stream) do
-    if Mix.env() == :dev, do: IO.puts("parsing file")
+    Logger.info("parsing file")
 
     stream
     |> Enum.map(&String.trim/1)

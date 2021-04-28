@@ -3,6 +3,7 @@ defmodule Discography.Albums do
   Isolate access to `Discography.Albums.Album` and `Discography.Albums.Decade`.
   """
 
+  require Logger
   alias Discography.Albums.Album
   alias Discography.Albums.Decade
 
@@ -14,7 +15,7 @@ defmodule Discography.Albums do
   """
   @spec sort(album_list()) :: album_list()
   def sort(albums, order \\ :asc) do
-    if Mix.env() == :dev, do: IO.puts("sorting albums")
+    Logger.info("sorting albums")
 
     albums
     |> Enum.sort_by(&get_name/1, order)
@@ -26,7 +27,7 @@ defmodule Discography.Albums do
   """
   @spec split_by_decade(album_list()) :: decade_list()
   def split_by_decade(albums) do
-    if Mix.env() == :dev, do: IO.puts("splitting albums by decade")
+    Logger.info("splitting albums by decade")
 
     albums
     |> Enum.chunk_by(fn album -> album |> Album.decade_name() end)

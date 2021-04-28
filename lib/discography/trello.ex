@@ -3,6 +3,7 @@ defmodule Discography.Integrations.Trello do
   Trello API context. Manages access to the API through business-driven functions.
   """
 
+  require Logger
   alias Discography.Integrations.Trello.API
   alias Discography.Albums.Album
   alias Discography.Albums.Decade
@@ -12,12 +13,12 @@ defmodule Discography.Integrations.Trello do
 
   @spec overwrite_lists(decade_list(), String.t()) :: decade_list()
   def overwrite_lists(decades, board_url) do
-    if Mix.env() == :dev, do: IO.puts("archiving preexisting lists on board")
+    Logger.info("archiving preexisting lists on board")
 
     board_id = API.get_board_id(board_url)
     archive_preexisting_lists(board_id)
 
-    if Mix.env() == :dev, do: IO.puts("creating new lists")
+    Logger.info("creating new lists")
 
     for decade <- decades do
       id = API.create_list(board_id, decade.title)
@@ -27,11 +28,11 @@ defmodule Discography.Integrations.Trello do
 
   @spec add_cards_to_lists(decade_list()) :: tuple()
   def add_cards_to_lists(decades) do
-    if Mix.env() == :dev, do: IO.puts("adding albums to lists")
+    Logger.info("adding albums to lists")
 
     for decade <- decades, album <- decade.albums do
       card_title = "#{album.year} - #{album.name}"
-      if Mix.env() == :dev, do: IO.puts("creating card #{card_title}")
+      Logger.info("creating card #{card_title}")
       API.create_card(decade.id, card_title, album.cover_url)
     end
 
