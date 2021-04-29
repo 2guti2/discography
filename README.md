@@ -39,3 +39,5 @@ iex -S mix
 iex> Discography.run("https://trello.com/b/cSCGNr0r/discography")
 ```
 
+# Result:
+![trello board](https://github.com/2guti2/discography/blob/master/discography.png?raw=true)
