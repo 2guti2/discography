@@ -32,7 +32,8 @@ defmodule Discography.MixProject do
           "Trello Integration": [
             Discography.Integrations.Trello,
             Discography.Integrations.Trello.API
-          ]
+          ],
+          Helpers: [Discography.Http]
         ]
       ]
     ]
