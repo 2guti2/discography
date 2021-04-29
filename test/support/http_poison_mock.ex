@@ -1,8 +1,11 @@
 defmodule Discography.Support.HttpPoisonMock do
   @moduledoc false
 
-
-  def post("https://api.trello.com/1/cards?idList=&key=c308982038e040387cd7fe3018e8ee3f&name=1974+-+Error" <> _, []) do
+  def post(
+        "https://api.trello.com/1/cards?idList=&key=c308982038e040387cd7fe3018e8ee3f&name=1974+-+Error" <>
+          _,
+        []
+      ) do
     {:ok, %{status_code: 400}}
   end
 
