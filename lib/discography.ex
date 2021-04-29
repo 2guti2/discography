@@ -15,7 +15,7 @@ defmodule Discography do
 
   ## Examples
 
-      iex> Discography.run
+      iex> Discography.run "https://trello.com/b/cSCGNr0r/discography"
 
   """
   @spec run(String.t()) :: any()

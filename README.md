@@ -36,5 +36,6 @@ Then run `source .env` every time this is modified to load them onto your OS.
 
 ```bash
 iex -S mix
+iex> Discography.run("https://trello.com/b/cSCGNr0r/discography")
 ```
 
