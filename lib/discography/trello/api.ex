@@ -3,6 +3,7 @@ defmodule Discography.Integrations.Trello.API do
   Trello API access module.
   """
 
+  alias Discography.Http
   @api_key System.get_env("TRELLO_API_KEY")
   @token System.get_env("TRELLO_TOKEN")
   @http_client Application.compile_env(:discography, :http_client, HTTPoison)
@@ -15,7 +16,7 @@ defmodule Discography.Integrations.Trello.API do
     })
     |> (&".json?#{&1}").()
     |> (&@http_client.get("#{remove_last_slash(url)}#{&1}")).()
-    |> handle_response(fn result ->
+    |> Http.handle_response(fn result ->
       case result do
         {:ok, body} ->
           Poison.decode!(body)["id"]
@@ -34,7 +35,7 @@ defmodule Discography.Integrations.Trello.API do
       })
 
     @http_client.get("#{@base_url}/boards/#{board_id}/lists?#{query}")
-    |> handle_response(fn result ->
+    |> Http.handle_response(fn result ->
       case result do
         {:ok, body} -> Poison.decode!(body)
         {:error, _} -> nil
@@ -65,7 +66,7 @@ defmodule Discography.Integrations.Trello.API do
       })
 
     @http_client.post("#{@base_url}/lists?#{query}", [])
-    |> handle_response(fn result ->
+    |> Http.handle_response(fn result ->
       case result do
         {:ok, body} ->
           Poison.decode!(body)["id"]
@@ -87,7 +88,7 @@ defmodule Discography.Integrations.Trello.API do
       })
 
     @http_client.post("#{@base_url}/cards?#{query}", [])
-    |> handle_response(fn result ->
+    |> Http.handle_response(fn result ->
       case result do
         {:ok, _body} ->
           {:ok}
@@ -105,19 +106,6 @@ defmodule Discography.Integrations.Trello.API do
       String.slice(url, 0..(String.length(url) - 2))
     else
       url
-    end
-  end
-
-  defp handle_response(res, callback) do
-    case res do
-      {:ok, %{status_code: 200, body: body}} ->
-        callback.({:ok, body})
-
-      {:ok, %{status_code: 400}} ->
-        callback.({:error, nil})
-
-      {:error, %{reason: _reason}} ->
-        callback.({:error, nil})
     end
   end
 end
