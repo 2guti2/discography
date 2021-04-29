@@ -5,6 +5,8 @@ defmodule Discography do
 
   alias Discography.Parser
   alias Discography.Albums
+  alias Discography.Integrations.Trello
+  alias Discography.Integrations.Spotify
 
   @file_reader Application.compile_env(:discography, :file_reader, File)
 
@@ -16,14 +18,15 @@ defmodule Discography do
       iex> Discography.run
 
   """
-
   @spec run(String.t()) :: any()
-  def run(file \\ "discography.txt") do
+  def run(board_url, artist \\ "Bob Dylan", file \\ "discography.txt") do
     file
     |> @file_reader.stream!()
     |> Parser.parse()
-    |> Albums.Context.add_cover()
-    |> Albums.Context.sort()
-    |> Albums.Context.split_by_decade()
+    |> Spotify.add_cover(artist)
+    |> Albums.sort()
+    |> Albums.split_by_decade()
+    |> Trello.overwrite_lists(board_url)
+    |> Trello.add_cards_to_lists()
   end
 end
