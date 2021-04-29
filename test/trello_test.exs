@@ -17,7 +17,7 @@ defmodule Discography.Test.TrelloTest do
         }
       ]
 
-      assert {:ok} == Trello.add_cards_to_lists(decades)
+      assert :ok == Trello.add_cards_to_lists(decades)
     end
 
     test "add_cards_to_lists/1 adds cards to lists on error" do
@@ -31,7 +31,7 @@ defmodule Discography.Test.TrelloTest do
         }
       ]
 
-      assert {:ok} == Trello.add_cards_to_lists(decades)
+      assert :ok == Trello.add_cards_to_lists(decades)
     end
 
     test "overwrite_lists/2 works" do

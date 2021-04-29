@@ -3,7 +3,7 @@ defmodule Discography.Integrations.Spotify.API do
   Spotify API access module.
   """
 
-  alias Discography.Http
+  import Discography.Http
   @client_id System.get_env("SPOTIFY_CLIENT_ID")
   @client_secret System.get_env("SPOTIFY_CLIENT_SECRET")
   @default_cover_url "https://upload.wikimedia.org/wikipedia/commons/3/3c/No-album-art.png"
@@ -22,7 +22,7 @@ defmodule Discography.Integrations.Spotify.API do
       "https://api.spotify.com/v1/search?type=#{type}&q=#{normalize_query(name)}",
       Authorization: token
     )
-    |> Http.handle_response(fn result ->
+    |> handle_response(fn result ->
       case result do
         {:ok, body} ->
           Poison.decode!(body)
@@ -51,7 +51,7 @@ defmodule Discography.Integrations.Spotify.API do
         "Authorization" => "Basic #{Base.encode64("#{@client_id}:#{@client_secret}")}"
       }
     )
-    |> Http.handle_response(fn result ->
+    |> handle_response(fn result ->
       case result do
         {:ok, body} ->
           "Bearer #{Poison.decode!(body)["access_token"]}"
@@ -63,18 +63,18 @@ defmodule Discography.Integrations.Spotify.API do
   end
 
   defp get_image_url_from_response(resp, type) do
-    item =
-      resp["#{type}s"]["items"]
-      |> Enum.at(0)
+    resp["#{type}s"]["items"]
+    |> Enum.at(0)
+    |> url_or_default()
+  end
 
-    if item == nil do
-      @default_cover_url
-    else
-      item
-      |> (& &1["images"]).()
-      |> Enum.at(0)
-      |> (& &1["url"]).()
-    end
+  defp url_or_default(item) when item == nil, do: @default_cover_url
+
+  defp url_or_default(item) do
+    item
+    |> (& &1["images"]).()
+    |> Enum.at(0)
+    |> (& &1["url"]).()
   end
 
   defp normalize_query(str), do: str |> String.replace(" ", "%20")

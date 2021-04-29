@@ -36,12 +36,12 @@ defmodule Discography.Albums do
   end
 
   defp build_decades(album_lists) do
-    for list <- album_lists do
+    Enum.map(album_lists, fn list ->
       %Decade{
         title: list |> Enum.at(0) |> Album.decade_name(),
         albums: list
       }
-    end
+    end)
   end
 
   defp get_name(album), do: album.name

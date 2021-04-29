@@ -19,14 +19,14 @@ defmodule Discography.Parser do
     stream
     |> Enum.map(&String.trim/1)
     |> Enum.map(&parse_line/1)
-    |> filter_out_nils
+    |> filter_out_nils()
   end
 
   defp parse_line(line) do
     {str_year, name} =
       line
       |> String.split(" ", trim: true)
-      |> first_and_rest
+      |> first_and_rest()
 
     case Integer.parse(str_year) do
       {year, ""} ->

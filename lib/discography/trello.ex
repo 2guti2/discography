@@ -20,13 +20,13 @@ defmodule Discography.Integrations.Trello do
 
     Logger.info("creating new lists")
 
-    for decade <- decades do
+    Enum.map(decades, fn decade ->
       id = API.create_list(board_id, decade.title)
       Map.merge(decade, %{id: id})
-    end
+    end)
   end
 
-  @spec add_cards_to_lists(decade_list()) :: tuple()
+  @spec add_cards_to_lists(decade_list()) :: any()
   def add_cards_to_lists(decades) do
     Logger.info("adding albums to lists")
 
@@ -36,7 +36,7 @@ defmodule Discography.Integrations.Trello do
       API.create_card(decade.id, card_title, album.cover_url)
     end
 
-    {:ok}
+    :ok
   end
 
   defp archive_preexisting_lists(board_id) do
